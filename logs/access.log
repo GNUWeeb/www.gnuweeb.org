@@ -1,0 +1,8 @@
+[21/Mar/2021:18:21:57 +0700]|182.2.42.236|-|GET / HTTP/2.0|200|187|-|-|0.006|curl/7.72.0
+[21/Mar/2021:18:28:39 +0700]|172.68.144.18|182.2.43.232|GET / HTTP/1.1|200|187|http://gnuweeb.org/|6336d685198c36dd-SIN|0.000|Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0
+[21/Mar/2021:18:28:42 +0700]|172.68.144.18|182.2.43.232|GET / HTTP/1.1|304|0|http://gnuweeb.org/|6336d69638a036dd-SIN|0.000|Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0
+[21/Mar/2021:18:28:56 +0700]|172.68.144.18|149.154.161.17|GET / HTTP/1.1|200|187|-|6336d6f11822c85f-SIN|0.000|TelegramBot (like TwitterBot)
+[21/Mar/2021:18:30:51 +0700]|172.68.144.18|168.151.131.70|GET / HTTP/1.1|200|187|-|6336d9c1dd620323-SIN|0.000|Mozilla/5.0 (iPhone; CPU iPhone OS 13_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Mobile/15E148 Safari/604.1
+[21/Mar/2021:18:33:24 +0700]|162.158.166.176|182.2.42.124|GET / HTTP/2.0|304|0|-|6336dd7cba9624eb-SIN|0.000|Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0
+[21/Mar/2021:18:36:20 +0700]|162.158.165.169|111.95.98.178|GET / HTTP/1.1|200|187|android-app://org.telegram.plus|6336e1ca6b0d1a36-SIN|0.000|Mozilla/5.0 (Linux; Android 10; SM-M315F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Mobile Safari/537.36
+[21/Mar/2021:18:36:23 +0700]|162.158.165.169|36.80.188.108|GET / HTTP/1.1|200|187|-|6336e1d8cfd432b5-SIN|0.001|Mozilla/5.0 (iPhone; CPU iPhone OS 14_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1

@@ -1,27 +1,49 @@
 
-.main-body {
+body {
 	color: #fff;
-	font-family: Arial;
+	font-family: monospace;
 	background-color: #000;
+	text-align: center;
 }
 
 .main-cage {
 	border: 1px solid #fff;
+	border-radius: 8px;
 	text-align: center;
 	margin: auto;
-	margin-top: 100px;
+	margin-top: 50px;
 	width: 60%;
 	height: 400px;
 }
 
 a {
-	color: white;
+	color: #fff;
 }
 
-.au {
+.nav-btn {
 	margin-top: 20px;
+	list-style-type: none;
+	padding: 0;
+	overflow: hidden;
+	background-color: #000;
+	float: left;
+	position: sticky;
+	top: 0;
+	width: 100%;
+	text-align: center;
 }
 
-.au button {
-	cursor: pointer;
+.nav-btn li {
+	display: inline-block;
+	margin: 2px;
+}
+
+.nav-btn li a {
+	color: #000;
+	background-color: #fff;
+	text-decoration: none;
+	font-weight: 400;
+	display: block;
+	border-radius: 4px;
+	padding: 10px 10px;
 }

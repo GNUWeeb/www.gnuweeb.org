@@ -1,0 +1,27 @@
+
+.main-body {
+	color: #fff;
+	font-family: Arial;
+	background-color: #000;
+}
+
+.main-cage {
+	border: 1px solid #fff;
+	text-align: center;
+	margin: auto;
+	margin-top: 100px;
+	width: 60%;
+	height: 400px;
+}
+
+a {
+	color: white;
+}
+
+.au {
+	margin-top: 20px;
+}
+
+.au button {
+	cursor: pointer;
+}

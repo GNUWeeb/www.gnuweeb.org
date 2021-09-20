@@ -1,0 +1,38 @@
+title: GNU/Weeb
+author:
+  name:
+description: > # this means to ignore newlines until "show_excerpts:"
+  Building community through Open Source technology.
+show_excerpts: false # set to true to show excerpts on the homepage
+# Date format
+# refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
+gnuweeb:
+  date_format: "%b %-d, %Y"
+
+  # generate social links in footer
+  social_links:
+    github: gnuweeb
+    telegram: GNUWeeb
+    reddit:
+    # twitter: jekyllrb
+    # devto: jekyll
+    # dribbble: jekyll
+    # facebook: jekyll
+    # flickr:   jekyll
+    # instagram: jekyll
+    # linkedin: jekyll
+    # pinterest: jekyll
+    # youtube: jekyll
+    # youtube_channel: UC8CXR0-3I70i1tfPg1PAE1g
+    # youtube_channel_name: CloudCannon
+    # googleplus: +jekyll
+    # microdotblog: jekyll
+    # keybase: jekyll
+
+# If you want to link only specific pages in your header, uncomment
+# this and add the path to the pages in order as they should show up
+#header_pages:
+# - about.md
+
+plugins:
+  - jekyll-seo-tag

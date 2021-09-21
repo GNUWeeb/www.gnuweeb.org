@@ -1,0 +1,11 @@
+#!/bin/bash
+#!/bin/sh
+
+set -e
+
+echo "Checking outdated gems version..."
+bundle outdated
+
+echo "Updating gems..."
+bundle update
+bundle check

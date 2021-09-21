@@ -1,0 +1,7 @@
+#!/bin/bash
+#!/bin/sh
+
+set -e
+
+echo "Live previewing the site..."
+bundle exec jekyll serve -l -w --config _config.yml

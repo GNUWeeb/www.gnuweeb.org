@@ -1,6 +1,0 @@
-#!/bin/sh
-
-set -e
-
-echo "Live previewing the site..."
-jekyll serve -l

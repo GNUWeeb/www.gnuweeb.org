@@ -1,7 +1,11 @@
+#!/bin/bash
 #!/bin/sh
 
 set -e
 
 echo "Installing Jekyll and Bundler..."
 gem install jekyll bundler
-bundle
+
+echo "Installing required gems..."
+bundle install
+bundle check

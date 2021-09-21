@@ -1,0 +1,7 @@
+#!/bin/bash
+#!/bin/sh
+
+set -e
+
+echo "Checking old deprecation and invalid configuration..."
+bundle doctor

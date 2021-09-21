@@ -1,8 +1,10 @@
+# Jekyll configuration
+
 title: GNU/Weeb
-author:
-  name:
+author: 
+  name: GNU/Weeb Contributors (https://github.com/GNUWeeb/www.gnuweeb.org/graphs/contributors)
 description: > # this means to ignore newlines until "show_excerpts:"
-  Building community through Open Source technology.
+  We are working to build community through Open Source technology
 show_excerpts: false # set to true to show excerpts on the homepage
 # Date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
@@ -13,7 +15,7 @@ gnuweeb:
   social_links:
     github: gnuweeb
     telegram: GNUWeeb
-    reddit:
+    reddit: gnuweeb
     # twitter: jekyllrb
     # devto: jekyll
     # dribbble: jekyll
@@ -29,10 +31,25 @@ gnuweeb:
     # microdotblog: jekyll
     # keybase: jekyll
 
+    # GitHub instances
+    # github:
+    # - username: GNUWeeb
+    #   instance: hello@gnuweeb.org
+
 # If you want to link only specific pages in your header, uncomment
 # this and add the path to the pages in order as they should show up
 #header_pages:
 # - about.md
 
 plugins:
+  - jekyll-feed
+  - jekyll-sitemap
   - jekyll-seo-tag
+
+
+exclude:
+  - bin
+  - "CODE_OF_CONDUCT.md"
+  - "gnuweeb.gemspec"
+  - "LICENSE"
+  - "README.md"

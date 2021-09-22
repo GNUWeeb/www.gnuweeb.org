@@ -23,8 +23,8 @@ a:hover {
   padding: 2.25rem 0;
 }
 
-.section:nth-of-type(even) {
-  background-color: #13151a;
+.section.home-content {
+  background-color: #13151a !important;
 }
 
 .jumbotron {

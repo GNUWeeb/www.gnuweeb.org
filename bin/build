@@ -1,5 +1,7 @@
 #!/bin/bash
 #!/bin/sh
+#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -e
 
@@ -16,7 +18,7 @@ Help() {
 
 # Development Build funtion
 DevBuild() {
-  echo "Building development mode site..."
+  echo "Building site in development mode..."
   # The default is development mode, just reassuring.
   JEKYLL_ENV=development bundle exec jekyll build --config _config.yml
   echo "Done."
@@ -26,7 +28,8 @@ DevBuild() {
 ProBuild() {
   echo "Building deployment ready site..."
   JEKYLL_ENV=production bundle exec jekyll build --config.yml
-  echo "Done. Now copy the contens of _site to your server."
+  echo "Done. Now copy the contents of ./docs to your server."
+  echo "If you're going to deploy it to GitHub Pages, simply pull this repo, set GitHub Pages at Settings tab > Pages and source to ./docs in Settings tab."
 }
 
 # Handling Options
@@ -39,7 +42,7 @@ while getopts dp: options; do
       ProBuild
       exit;;
     \?) # Invalid option
-      echo "owO: You've entered invalid option."
+      echo "OωO: You've entered invalid option."
       exit;;
   esac
 done

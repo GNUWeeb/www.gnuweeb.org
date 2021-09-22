@@ -96,3 +96,7 @@ vendor/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Keep ./docs folder but not added to repo if deploying to github pages.
+docs/*
+!docs/.gitkeep

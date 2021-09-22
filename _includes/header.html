@@ -1,0 +1,22 @@
+{% comment %}
+Header section.
+{% endcomment %}
+
+<header class="section jumbotron">
+  <div class="container d-flex align-items-center h-100">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 text-center text-md-start">
+        <div class="heading text-center text-md-start">
+          <h1 class="title display-2 fw-bolder">{{ site.title | escape }}</h1>
+          <p class="subtitle text-white-50 h4">
+            {{ site.tagline | escape }}
+          </p>
+        </div>
+        <p class="my-5 text-center text-md-start lead">
+          {{ site.description | escape }}
+        </p>
+        {%- include sns.html -%}
+      </div>
+    </div>
+  </div>
+</header>

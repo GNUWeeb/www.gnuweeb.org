@@ -1,11 +1,17 @@
 
-# GNU/Weeb
+# [GNU/Weeb](https://gnuweeb.org "GNU/Weeb")
 
-> We are working to build community through Open Source community.
+Build community through Open Source technology.
+
+Welcome to the official GNU/Weeb main site repo.  
+Read this README file until you understand before pulling a request.
 
 ## Contributions
 
-Feel free to make contribution. Fork this repo, make your changes and pull your request.
+Feel free to make a contribution.
+
+Before you started making your changes, please read our [Wiki](https://github.com/www.gnuweeb.org/wiki) page first.  
+Then fork this repo, make your changes and pull a request.
 
 ### Prequisites
 
@@ -16,12 +22,17 @@ Feel free to make contribution. Fork this repo, make your changes and pull your 
 ### Installation
 
 - Fork and clone this repo.
-- `cd` to project root and type `sh ./bin/setup` or `bash ./bin/setup` to install [Jekyll](https://jekyllrb.com "Jekyll"), [Bundler](https://bundler.io "Bundler") and the required gem files.
+- `cd` to project root and type `sh ./bin/setup` or `bash ./bin/setup` to install [Jekyll](https://jekyllrb.com "Jekyll"), [Bundler](https://bundler.io "Bundler") and the required gem packages.
+- You're done! AwesOωO
 
 ### Tools
 
+Make life easier with built-in automation script.
+
 - `build` Build the site into development or production mode.
+- `check` Check is there any deprecated dependency and invalid configuration.
 - `serve` Live previewing the site.
+- `setup` First thing you should do after cloning this repo.
 - `update` Update outdated gems.
 
 ## License

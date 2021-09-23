@@ -5,7 +5,7 @@ tagline: We are working to build community through Open Source technology
 author:
   name: GNU/Weeb Contributors (https://github.com/GNUWeeb/www.gnuweeb.org/graphs/contributors)
 description: > # this means to ignore newlines until "show_excerpts:"
-  We're an enthusiastic community with high dedication to Free Open Source Software (FOSS). We also like Anime (well, you've seen the name). We will always try to provide the best possible contributions to the community through our projects.
+  NB: members on GitHub must have two-factor auth.
 show_excerpts: false # set to true to show excerpts on the homepage
 logo: assets/img/favicon.png
 

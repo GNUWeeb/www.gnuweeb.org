@@ -1,3 +1,8 @@
+/* Define variables */
+:root {
+  --darker-than-black: #13151a;
+}
+
 /* || Base style */
 body {
   color: var(--bs-light);
@@ -24,7 +29,7 @@ a:hover {
 }
 
 .section.home-content {
-  background-color: #13151a !important;
+  background-color: var(--darker-than-black);
 }
 
 .jumbotron {
@@ -54,6 +59,9 @@ a:hover {
 }
 
 /* || Accordion custom */
+.home-content .accordion-item {
+  background-color: transparent;
+}
 .accordion-flush .accordion-item .accordion-button {
   border: 2px solid var(--bs-white);
   border-radius: 0;
@@ -61,21 +69,22 @@ a:hover {
   font-weight: bolder;
 }
 
+.accordion-flush .accordion-item .accordion-button:not(.collapsed) {
+  background-color: var(--bs-white);
+  color: var(--darker-than-black);
+}
+
+.accordion-flush .accordion-item .accordion-button.collapsed {
+  background-color: var(--darker-than-black);
+}
+
 .accordion-flush .accordion-item:not(:last-of-type) .accordion-button {
   border-bottom: 0;
 }
 
-.accordion-flush .accordion-item:first-of-type .accordion-button {
-  border-top-width: 2px;
-}
-
-.accordion-flush .accordion-item:last-of-type .accordion-button {
-  border-bottom-width: 2px !important;
-}
-
-.accordion-flush .accordion-item .accordion-button:not(.collapsed) {
-  background-color: var(--bs-white);
-  color: var(--bs-dark);
+.accordion-flush .accordion-item .accordion-collapse:not(.collapsed) {
+  background-color: var(--darker-than-black);
+  color: var(--bs-white);
 }
 
 .accordion-flush .accordion-item .accordion-button:focus {
@@ -90,3 +99,4 @@ a:hover {
 .accordion-flush .accordion-item .accordion-button:not(.collapsed)::after {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2313151a'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
 }
+

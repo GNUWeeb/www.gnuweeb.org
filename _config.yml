@@ -1,0 +1,50 @@
+# Jekyll configuration
+
+title: GNU/Weeb
+tagline: We are working to build community through Open Source technology
+author:
+  name: GNU/Weeb Contributors (https://github.com/GNUWeeb/www.gnuweeb.org/graphs/contributors)
+description: > # this means to ignore newlines until "show_excerpts:"
+  We're an enthusiastic community with high dedication to Free Open Source Software (FOSS). We also like Anime (well, you've seen the name). We will always try to provide the best possible contributions to the community through our projects.
+show_excerpts: false # set to true to show excerpts on the homepage
+logo: assets/img/favicon.png
+
+# Date format
+# refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
+gnuweeb:
+  date_format: "%b %-d, %Y"
+
+# generate social links in footer
+social:
+  name: GNU/Weeb
+  links:
+    - telegram: https://t.me/GNUWeeb
+    - github: https://git.io/GNUWeeb
+    - discord: https://discord.gg/RjFjhzEH9c
+    - reddit: https://reddit.com/r/gnuweeb
+
+# google_site_verification:
+# google_analytics:
+# webmaster_verifications:
+#   google: 1234
+#   bing: 1234
+#   alexa: 1234
+#   yandex: 1234
+#   baidu: 1234
+
+domain: gnuweeb.github.io # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
+url: https://gnuweeb.github.io # the base hostname and protocol for your site, e.g. http://example.com
+baseurl: "" # place folder name if the site is served in a subfolder. Default: ./
+destination: ./docs # Where builded site should stored.
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - bin
+  - "CODE_OF_CONDUCT.md"
+  - "gnuweeb.gemspec"
+  - "LICENSE"
+  - "README.md"

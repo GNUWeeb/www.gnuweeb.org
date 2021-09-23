@@ -1,5 +1,8 @@
 
+*.tmp
 *.lock
+/*.patch
+
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,jekyll,ruby
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,jekyll,ruby
 

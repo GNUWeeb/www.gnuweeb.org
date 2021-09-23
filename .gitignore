@@ -1,6 +1,5 @@
 
 *.tmp
-*.lock
 /*.patch
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,jekyll,ruby

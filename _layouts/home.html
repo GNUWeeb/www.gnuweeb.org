@@ -250,24 +250,13 @@ layout: default
 
             <h3 class="h4 lead pt-4">{{ site.title | escape }} Admins</h3>
             <ol>
+            {% for admin in site.social.admins %}
               <li>
-                <a class="a-white" href="https://t.me/ddrm_phrase"
-                  >@ddrm_phrase</a
+                <a class="a-white" href="https://t.me/{{ admin }}"
+                  >@{{ admin }}</a
                 >
               </li>
-              <li>
-                <a class="a-white" href="https://t.me/lappretard"
-                  >@lappretard</a
-                >
-              </li>
-              <li>
-                <a class="a-white" href="https://t.me/ammarfaizi2"
-                  >@ammarfaizi2</a
-                >
-              </li>
-              <li>
-                <a class="a-white" href="https://t.me/nrudesu">@nrudesu</a>
-              </li>
+            {% endfor %}
             </ol>
 
             <p>

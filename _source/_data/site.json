@@ -1,0 +1,23 @@
+{
+    "title": "The GNU/Weeb Website",
+    "name": "GNU/Weeb",
+    "description": "We are working to build community through open source technology..",
+    "url": "https://gnuweeb.org",
+    "language": "en",
+    "resource": [
+        {
+            "name": "Github",
+            "url": "https://github.com/gnuweeb"
+        },
+        {
+            "name": "Mailing List",
+            "url": "https://lore.gnuweeb.org"
+        }
+    ],
+    "social": [
+        {
+            "name": "Site Feed",
+            "url": "https://gnuweeb.org/sitemap.xml"
+        }
+    ]
+}

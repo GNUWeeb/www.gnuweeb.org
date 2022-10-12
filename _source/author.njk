@@ -1,0 +1,10 @@
+---
+layout: base
+pagination:
+    data: author
+    size: 1
+    alias: author
+permalink: "author/{{ author.username | slug }}/"
+---
+
+{{ author.username }} is {{ author.fullname }}

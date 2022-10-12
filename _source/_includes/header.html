@@ -1,0 +1,12 @@
+<header id="banner" class="body">
+    <div id="tux-gear"></div>
+        <h1><a href="../">{{ site.title }}</a></h1>
+        <nav>
+            <ul>
+                {% for page in collections.pages %}
+                <li><a href="{{ page.url }}">{{ page.data.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+</header>
+<!-- /#Header -->

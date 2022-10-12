@@ -1,0 +1,16 @@
+---
+layout: base
+---
+
+<section id="content" class="body">
+	<header>
+		<h1 class="entry-title">{{ title }}</h1>
+	</header>
+	<div class="entry-content">
+		<footer class="post-info">
+			<abbr class="published">{{ date | postDate }}</abbr>
+			<address class="vcard author">By <a href="#">{{ author }}</a></address>
+		</footer>
+		<p>{{ content }}</p>
+	</div>
+</section>

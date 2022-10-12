@@ -1,0 +1,7 @@
+{
+  "tags": [
+    "pages"
+  ],
+  "layout": "page.html",
+  "permalink": "{{ title | slugify }}/index.html"
+}

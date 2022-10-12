@@ -1,0 +1,18 @@
+<section id="extras" class="body">
+    <div class="blogroll">
+        <h2>Other resources</h2>
+        <ul>
+            {% for r in site.resource %}
+            <li><a href="{{ r.url }}">{{ r.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- /.blogroll -->
+    <div class="social">
+        <h2>Social</h2>
+        <ul>
+            <li><a href="/sitemap.xml" type="application/atom+xml" rel="alternate">Site Atom feed</a></li>
+        </ul>
+    </div>
+    <!-- /.social -->
+</section>

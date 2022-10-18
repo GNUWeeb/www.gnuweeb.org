@@ -78,13 +78,14 @@ body {
     }
 }
 #tux-gear {
-    width: 6.5em;
+    width: 7.5em;
     height: 7.5em;
-    background-image: url('https://kernel.org/theme/images/logos/tux.png');
+    background-image: url('https://avatars.githubusercontent.com/u/81083695?v=4');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
     float: right;
+    border-radius: 100%;
 }
 h1 {
     font-family: $font-family_2;

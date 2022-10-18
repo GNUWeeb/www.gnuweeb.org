@@ -6,6 +6,7 @@ pagination:
   size: 10
   reverse: true
   alias: posts
+eleventyExcludeFromCollections: true
 ---
 
 <section id="content" class="body">

@@ -2,7 +2,7 @@
     "title": "The GNU/Weeb Website",
     "name": "GNU/Weeb",
     "description": "We are working to build community through open source technology..",
-    "url": "https://gnuweeb.org",
+    "url": "https://www.gnuweeb.org",
     "language": "en",
     "resource": [
         {
@@ -17,7 +17,37 @@
     "social": [
         {
             "name": "Site Feed",
-            "url": "https://gnuweeb.org/sitemap.xml"
+            "url": "https://www.gnuweeb.org/sitemap.xml"
+        },
+        {
+            "name": "Atom Feed GWML",
+            "url": "https://lore.gnuweeb.org/gwml/new.atom"
+        }
+    ],
+    "temp": [
+        {
+            "name": "Telegram",
+            "url": "https://t.me/gnuweeb"
+        },
+        {
+            "name": "Discord",
+            "url": "https://discord.gg/GyRxNzK3Zs"
+        },
+        {
+            "name": "Mailing List",
+            "url": "mailto:gwml@vger.gnuweeb.org"
+        },
+        {
+            "name": "Lore",
+            "url": "https://lore.gnuweeb.org"
+        },
+        {
+            "name": "Github",
+            "url": "https://github.com/gnuweeb"
+        },
+        {
+            "name": "IRC",
+            "url": "https://irc.gnuweeb.org"
         }
     ]
 }

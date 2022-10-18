@@ -7,11 +7,12 @@
             {% endfor %}
         </ul>
     </div>
-    <!-- /.blogroll -->
     <div class="social">
         <h2>Social</h2>
         <ul>
-            <li><a href="/sitemap.xml" type="application/atom+xml" rel="alternate">Site Atom feed</a></li>
+            {% for s in site.social %}
+            <li><a href="{{ s.url }}" type="application/atom+xml" rel="alternate">{{ s.name }}</a></li>
+            {% endfor %}
         </ul>
     </div>
     <!-- /.social -->

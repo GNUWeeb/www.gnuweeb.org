@@ -116,9 +116,9 @@ Right aligned columns
 
 ## Links
 
-[link text](http://dev.nodeca.com)
+[link text](http://gnuweeb.org)
 
-[link with title](http://nodeca.github.io/pica/demo/ "title text!")
+[link with title](http://gnuweeb.org "GNU/Weeb!")
 
-Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
+Autoconverted link https://github.com/gnuweeb (enable linkify to see)
 

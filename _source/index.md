@@ -3,6 +3,7 @@ layout: page
 title: "Home!"
 ---
 
-## You're ready to go!
+# What is GNU/Weeb?
 
-Start developing your website.
+GNU/Weeb is comunity that working on open-source technology
+

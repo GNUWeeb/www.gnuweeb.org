@@ -6,5 +6,5 @@
 <!-- styles -->
 <link rel="stylesheet" href="assets/css/style.css">
 <!-- script -->
-<script async type="module" src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.2.4-ZifPufG8LWXS2LFpHP7B/mode=imports,min/optimized/@hotwired/turbo.js"></script>
+<script async type="module" src="assets/js/turbo.js"></script>
 </head>

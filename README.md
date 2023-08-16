@@ -1,40 +1,57 @@
+# GNU/Weeb Website
 
-# [GNU/Weeb](https://gnuweeb.org "GNU/Weeb")
+Build comunity through Open Source technology.
 
-Build community through Open Source technology.
+Welcome to new website repo for GNU/Weeb. This is a new website for GNU/Weeb.
+This website is built with pure PHP native and HTML5.
 
-Welcome to the official GNU/Weeb main site repo.  
-Read this README file until you understand before pulling a request.
+## How to contribute
 
-## Contributions
+You can contribute to this website by forking this repo and make a pull request.
+You can also contribute by opening an issue.
 
-Feel free to make a contribution.
+## Installation
 
-Before you started making your changes, please read our [Wiki](https://github.com/www.gnuweeb.org/wiki) page first.  
-Then fork this repo, make your changes and pull a request.
+- Clone this repo.
+- `cd` into the root directory.
+- copy `config.example.php` to `config.php` and edit it.
+- and run this command:
 
-### Prequisites
+    ```bash
+    php -S localhost:8000 -t public public/index.php
+    ```
 
-- [Ruby](https://www.ruby-lang.org/en/ "Ruby") version 2.5.0 or higher, including all development headers.
-- [RubyGems](https://rubygems.org/ "RubyGems")
-- [GCC](https://gcc.gnu.org/ "GCC") and [Make](https://www.gnu.org/software/make "Make")
+- Open your browser and go to `localhost:8000`
 
-### Installation
+## Configuration
 
-- Fork and clone this repo.
-- `cd` to project root and type `sh ./bin/setup` or `bash ./bin/setup` to install [Jekyll](https://jekyllrb.com "Jekyll"), [Bundler](https://bundler.io "Bundler") and the required gem packages.
-- You're done! AwesOωO
+default configuration is:
 
-### Tools
+```php
+<?php
 
-Make life easier with built-in automation script.
+define("BASEURL", "http://127.0.0.1:8000");
+define("LOGS_DIR", __DIR__."/logs");
+define("PUBLIC_DIR", __DIR__."/public");
+define("APP_TITLE", "The GNU/Weeb Website");
+```
 
-- `build` Build the site into development or production mode.
-- `check` Check is there any deprecated dependency and invalid configuration.
-- `serve` Live previewing the site.
-- `setup` First thing you should do after cloning this repo.
-- `update` Update outdated gems.
+you can call the `config` like this:
 
-## License
+```php
+<title><?= e(APP_TITLE); ?></title>
+```
 
-Licensed under BSD-3-Clause "New" or "Revised" License.
+### Custom config
+
+you can made a custom config for each page for example:
+
+```php
+<?php
+
+$opt["type"] = "Something";
+
+?>
+```
+
+and call it with `<?= e($opt["type"] ?? "") ?>`

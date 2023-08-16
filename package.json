@@ -6,7 +6,7 @@
     "watch": "tailwindcss -i ./style.css -o ./dist/style.css --watch && npm run build:static && npm run build:html",
     "serve": "serve",
     "dev": "concurrently \"npm run watch\" \"npm run serve\"",
-    "build:css": "tailwindcss -i ./style.css -o ./dist/style.css --minify && postcss ./dist/style.css -o ./dist/style.css --use autoprefixer",
+    "build:css": "tailwindcss -i ./style.css -o ./dist/style.css --minify && postcss ./dist/style.css -o ./dist/style.css --use autoprefixer --no-map",
     "build:static": "cp -r ./static ./dist",
     "build:html": "cat ./index.html | sed 's/dist/./' > ./dist/index.html",
     "build:minify": "node build.js",

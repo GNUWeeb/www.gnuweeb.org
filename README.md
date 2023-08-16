@@ -1,57 +1,57 @@
-# GNU/Weeb Website
+# GNU/Weeb's Landing Page
 
-Build comunity through Open Source technology.
+GNU/Weeb's simple landing page.
 
-Welcome to new website repo for GNU/Weeb. This is a new website for GNU/Weeb.
-This website is built with pure PHP native and HTML5.
+## Project Structure
 
-## How to contribute
+```
+/ - index.html          (Main page)
+  - style.css           (Tailwind CSS)
+  - package.json        (Dev dependencies)
+  - *package-lock.json  (npm lockfile)
+  - static/             (Static files)
+    - favicon.ico       (Favicon)
+  - **dist/             (Build directory)
+  - build.js            (Build script)
+  - .gitignore          (Git ignore)
 
-You can contribute to this website by forking this repo and make a pull request.
-You can also contribute by opening an issue.
+/** Legend:
+  * (*)   => Only available after npm install
+  * (**)  => Only available after npm build
+  */
 
-## Installation
-
-- Clone this repo.
-- `cd` into the root directory.
-- copy `config.example.php` to `config.php` and edit it.
-- and run this command:
-
-    ```bash
-    php -S localhost:8000 -t public public/index.php
-    ```
-
-- Open your browser and go to `localhost:8000`
-
-## Configuration
-
-default configuration is:
-
-```php
-<?php
-
-define("BASEURL", "http://127.0.0.1:8000");
-define("LOGS_DIR", __DIR__."/logs");
-define("PUBLIC_DIR", __DIR__."/public");
-define("APP_TITLE", "The GNU/Weeb Website");
 ```
 
-you can call the `config` like this:
+## Development
 
-```php
-<title><?= e(APP_TITLE); ?></title>
+> You will need `nodejs` (minimum version: 16) and `npm` package to run the dev server locally
+
+### Installing dependencies
+
+To install the dependencies, issue this command:
+
+```bash
+npm install
 ```
 
-### Custom config
+### Development Server
 
-you can made a custom config for each page for example:
+To run the dev server, issue this command:
 
-```php
-<?php
-
-$opt["type"] = "Something";
-
-?>
+```bash
+npm run dev
 ```
 
-and call it with `<?= e($opt["type"] ?? "") ?>`
+## Building for Production
+
+To build for production, issue this command:
+
+```bash
+npm run build
+```
+
+This will copy all the required files into the `dist` directory.
+
+## License
+
+BSD 3-Clause License.

@@ -1,0 +1,24 @@
+{
+  "name": "gnuweeb-org-web",
+  "version": "1.0.0",
+  "description": "gnuweeb.org website",
+  "scripts": {
+    "watch": "tailwindcss -i ./style.css -o ./dist/style.css --watch && npm run build:static && npm run build:html",
+    "serve": "serve",
+    "dev": "concurrently \"npm run watch\" \"npm run serve\"",
+    "build:css": "tailwindcss -i ./style.css -o ./dist/style.css --minify && postcss ./dist/style.css -o ./dist/style.css --use autoprefixer",
+    "build:static": "cp -r ./static ./dist",
+    "build:html": "cat ./index.html | sed 's/dist/./' > ./dist/index.html",
+    "build:minify": "node build.js",
+    "build": "npm run build:css && npm run build:static && npm run build:html && npm run build:minify"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.15",
+    "concurrently": "^8.2.0",
+    "html-minifier-terser": "^7.2.0",
+    "postcss": "^8.4.28",
+    "postcss-cli": "^10.1.0",
+    "serve": "^14.2.0",
+    "tailwindcss": "^3.3.3"
+  }
+}

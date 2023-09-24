@@ -305,6 +305,8 @@
     </footer>
 
     <script lang="text/javascript">
+      const API_URL = "https://telegram-bot.teainside.org";
+
       function copyText() {
         var copyText = document.getElementById("copy-button");
         var text = document.getElementById("copy-text").innerText;
@@ -351,15 +353,267 @@
 
           const usernameDivEl = document.createElement("div");
           usernameDivEl.classList.add("truncate", "text-sky-500");
-          usernameDivEl.innerText = `@${e.login}`
+          usernameDivEl.innerText = `@${e.login}`;
           userAnchorEl.appendChild(userImgEl);
           userAnchorEl.appendChild(usernameDivEl);
           memberList.appendChild(userAnchorEl);
         });
       }
 
+      async function getRecentMessages() {
+        const response = await fetch(API_URL + "/zxc.php?action=get_messages&chat_id=-1001483770714&limit=50");
+        const { data } = (await response.json()).result;
+
+        const transformedData = data.map(item => {
+          return {
+            user_id: item[0],
+            username: item[1],
+            first_name: item[2],
+            last_name: item[3],
+            user_photo: item[4],
+            message_id: item[5],
+            reply_to_message_id: item[6],
+            message_type: item[7],
+            text: item[8],
+            text_entities: item[9] ? JSON.parse(item[9]) : null,
+            file: item[10],
+            date: item[11]
+          };
+        });
+
+        return transformedData.reverse();
+      }
+
+      function hashCode(name) {
+        var hash = 0;
+        for (var i = 0; i < name.length; i++) {
+            var character = name.charCodeAt(i);
+            hash = ((hash << 5) - hash) + character;
+        }
+        return Math.abs(hash);
+      }
+
+      function getFixedRandomColor(name) {
+        const colors = [
+          "red", "yellow", "blue", "sky", "purple", "orange",
+          "amber", "lime", "green", "emerald", "teal", "cyan",
+          "indigo", "violet", "fuchsia", "pink", "rose"
+        ];
+
+        const c = colors[hashCode(name) % colors.length];
+        return [
+          "text-" + c + "-400",
+          "border-" + c + "-400",
+        ];
+      }
+
+      function cleanMessageText(text) {
+        return text.replaceAll(/\n/g, " ");
+      }
+
+      function setupUserName(first, last) {
+        const firstName = first.trimEnd();
+        let lastName = "";
+        if(last !== null) {
+          lastName = " " + last.trimEnd();
+        }
+        return [ firstName, lastName ];
+      }
+
+      async function renderRecentMessages() {
+        const messageData = await getRecentMessages();
+        const recentMessages = document.getElementById("recent-messages");
+
+        messageData.forEach(message => {
+          const getColor = m => getFixedRandomColor(`${m.first_name}`);
+
+          const chatContainer = document.createElement("div");
+          chatContainer.id = message.message_id;
+          chatContainer.classList.add("chat", "chat-start", "max-w-[300px]");
+
+          const chatAvatar = document.createElement("div");
+          chatAvatar.classList.add("chat-image", "avatar");
+
+          const avatarRounded = document.createElement("div");
+          avatarRounded.classList.add("w-10", "rounded-full");
+
+          const avatarImg = document.createElement("img");
+          avatarImg.setAttribute("draggable", "false");
+          avatarImg.setAttribute("src", API_URL + "/storage/files/" + message.user_photo);
+
+          avatarRounded.appendChild(avatarImg);
+          chatAvatar.appendChild(avatarRounded);
+
+          const chatBubble = document.createElement("div");
+          chatBubble.id = `${message.message_id}-highlight`;
+          chatBubble.classList.add(
+            "chat-bubble", "transition", "before:transition",
+            "duration-500", "before:duration-500", "ease-in-out",
+            "before:ease-in-out", "delay-200", "before:delay-200"
+          );
+
+          const chatHeader = document.createElement("div");
+          chatHeader.classList.add(
+            "chat-header", "font-semibold", "pb-1",
+            "line-clamp-1", getColor(message)[0],
+          );
+          const [ firstName, lastName ] = setupUserName(
+            message.first_name,
+            message.last_name
+          );
+          chatHeader.innerText = firstName + lastName;
+
+          const chatMsgContent = document.createElement("div");
+          if(message.message_type === "text") {
+            chatMsgContent.classList.add(
+              "text-neutral-300", "max-w-[150px]",
+              "max-h-min", "line-clamp-2"
+            );
+            chatMsgContent.innerText = cleanMessageText(message.text);
+          } else if(message.message_type === "photo") {
+            const imageFile = API_URL + "/storage/files/" + message.file;
+
+            const msgPhotoContainer = document.createElement("div");
+            msgPhotoContainer.classList.add("relative");
+
+            const messagePhoto = document.createElement("img");
+            messagePhoto.src = imageFile;
+            messagePhoto.classList.add("rounded-md", "mt-1", "relative");
+
+            const hoverSeeImg = document.createElement("a");
+            hoverSeeImg.href = imageFile;
+            hoverSeeImg.setAttribute("target", "_blank");
+            hoverSeeImg.setAttribute("draggable", "false");
+            hoverSeeImg.classList.add(
+              "absolute", "top-0", "w-full", "h-full", "flex", "rounded-md",
+              "items-center", "justify-center", "hover:bg-neutral-900", "uppercase",
+              "hover:bg-opacity-60", "transition", "duration-200", "ease-in-out",
+              "font-bold", "text-xl", "text-white", "opacity-0", "hover:opacity-100",
+              "select-none"
+            );
+            hoverSeeImg.innerText = "See";
+
+            msgPhotoContainer.appendChild(messagePhoto);
+            msgPhotoContainer.appendChild(hoverSeeImg);
+            chatMsgContent.appendChild(msgPhotoContainer);
+
+            if(message.text !== null) {
+              const photoCaption = document.createElement("div");
+              photoCaption.classList.add(
+                "text-neutral-300", "line-clamp-2",
+                "max-w-[150px]", "mt-2"
+              );
+              photoCaption.innerText = cleanMessageText(message.text);
+              chatMsgContent.appendChild(photoCaption);
+            }
+          }
+
+          const chatFooter = document.createElement("div");
+          chatFooter.classList.add(
+            "flex", "items-center", "pt-2",
+            "justify-between", "space-x-3"
+          );
+
+          const readMore = document.createElement("a");
+          readMore.setAttribute("href", "https://t.me/gnuweeb/" + message.message_id);
+          readMore.setAttribute("draggable", "false");
+          readMore.setAttribute("target", "_blank");
+          readMore.classList.add(
+            "text-xs", "text-sky-400", "opacity-70",
+            "font-semibold", "select-none"
+          );
+          readMore.innerText = "Read more";
+          chatFooter.appendChild(readMore);
+
+          const chatDate = document.createElement("div");
+          chatDate.classList.add(
+            "flex", "justify-end", "space-x-1",
+            "text-xs", "opacity-70",
+          );
+
+          const msgTime = document.createElement("time");
+          msgTime.innerText = message.date;
+
+          chatDate.appendChild(msgTime);
+
+          chatFooter.appendChild(chatDate);
+
+          chatBubble.appendChild(chatHeader);
+
+          const replyMessages = messageData.filter(msg => {
+            return msg.message_id === message.reply_to_message_id
+          });
+          if(message.reply_to_message_id !== null && replyMessages.length > 0) {
+            const replyMessage = replyMessages[0];
+
+            const chatMsgReply = document.createElement("button");
+            chatMsgReply.onclick = () => {
+              const targetReply = document.getElementById(message.reply_to_message_id.toString());
+              const highlightReply = document.getElementById(`${message.reply_to_message_id}-highlight`);
+
+              targetReply.scrollIntoView({
+                behavior: "smooth", block: "end", inline: "nearest"
+              });
+
+              highlightReply.classList.add(
+                "!bg-neutral-700", "!scale-105"
+              );
+
+              setTimeout(() => {
+                highlightReply.classList.remove(
+                  "!bg-neutral-700", "!scale-105"
+                );
+              }, 2000);
+            }
+            chatMsgReply.classList.add(
+              "w-full", "border-l-2", "!my-2", "text-sm", "text-start",
+              "pl-2", "py-1", getColor(replyMessage)[1], "flex", "flex-col",
+              "text-neutral-300", "text-opacity-80", "hover:bg-neutral-800",
+              "rounded-r-md", "rounded-l-sm"
+            );
+
+            const usernameMsgReply = document.createElement("span");
+            usernameMsgReply.classList.add(
+              "not-italic", "font-semibold", "line-clamp-1",
+              "select-none", getColor(replyMessage)[0]
+            );
+            const [ firstName, lastName ] = setupUserName(
+              replyMessage.first_name,
+              replyMessage.last_name
+            );
+            usernameMsgReply.innerText = firstName + lastName;
+
+            const textMsgReply = document.createElement("span");
+            textMsgReply.classList.add(
+              "line-clamp-1", "max-w-[150px]",
+              "max-h-min", "text-start"
+            );
+            textMsgReply.innerText = cleanMessageText(
+              replyMessage.text !== null ? replyMessage.text : "Photo"
+            );
+
+            chatMsgReply.appendChild(usernameMsgReply);
+            chatMsgReply.appendChild(textMsgReply);
+            chatBubble.appendChild(chatMsgReply);
+          };
+
+          chatBubble.appendChild(chatMsgContent);
+          chatBubble.appendChild(chatFooter);
+
+          chatContainer.appendChild(chatAvatar);
+          chatContainer.appendChild(chatBubble);
+
+          recentMessages.appendChild(chatContainer);
+        });
+
+        recentMessages.lastChild.scrollIntoView({
+          behavior: "instant", block: "end", inline: "nearest"
+        });
+      };
+
       document.addEventListener("DOMContentLoaded", function() {
         renderMemberList();
+        renderRecentMessages();
       });
     </script>
 

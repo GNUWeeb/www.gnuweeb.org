@@ -252,8 +252,10 @@
         var text = document.getElementById("copy-text").innerText;
         navigator.clipboard.writeText(text);
         copyText.innerText = "Copied!";
+        copyText.classList.add("bg-neutral-800");
         setTimeout(function () {
           copyText.innerText = "Copy";
+          copyText.classList.remove("bg-neutral-800");
         }, 3000);
       }
     </script>

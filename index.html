@@ -294,6 +294,21 @@
           copyText.classList.remove("bg-neutral-800");
         }, 3000);
       }
+
+      async function getOrgMembers() {
+        const response = await fetch("https://api.github.com/orgs/gnuweeb/members");
+        const data = await response.json();
+
+        data.sort((left, right) => {
+          const usernameA = left.login.toLowerCase();
+          const usernameB = right.login.toLowerCase();
+          if (usernameA < usernameB) return -1;
+          if (usernameA > usernameB) return 1;
+          return 0;
+        });
+
+        return data;
+      }
     </script>
 
   </body>

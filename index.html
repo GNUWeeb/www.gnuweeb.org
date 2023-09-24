@@ -309,6 +309,36 @@
 
         return data;
       }
+
+      async function renderMemberList() {
+        const membersData = await getOrgMembers();
+        const memberList = document.getElementById("member-list");
+
+        membersData.forEach(e => {
+          const userAnchorEl = document.createElement("a");
+          userAnchorEl.href = e.html_url;
+          userAnchorEl.classList.add(
+            "flex", "items-center", "space-x-3",
+            "p-1", "rounded-lg", "hover:bg-neutral-800"
+          );
+
+          const userImgEl = document.createElement("img");
+          userImgEl.src = e.avatar_url;
+          userImgEl.alt = `${e.login} | Organization Member`;
+          userImgEl.classList.add("rounded-full", "w-10");
+
+          const usernameDivEl = document.createElement("div");
+          usernameDivEl.classList.add("truncate", "text-sky-500");
+          usernameDivEl.innerText = `@${e.login}`
+          userAnchorEl.appendChild(userImgEl);
+          userAnchorEl.appendChild(usernameDivEl);
+          memberList.appendChild(userAnchorEl);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMemberList();
+      });
     </script>
 
   </body>

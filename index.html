@@ -361,27 +361,31 @@
       }
 
       async function getRecentMessages() {
-        const response = await fetch(API_URL + "/zxc.php?action=get_messages&chat_id=-1001483770714&limit=50");
-        const { data } = (await response.json()).result;
+        try {
+          const response = await fetch(API_URL + "/zxc.php?action=get_messages&chat_id=-1001483770714&limit=50");
+          const { data } = (await response.json()).result;
 
-        const transformedData = data.map(item => {
-          return {
-            user_id: item[0],
-            username: item[1],
-            first_name: item[2],
-            last_name: item[3],
-            user_photo: item[4],
-            message_id: item[5],
-            reply_to_message_id: item[6],
-            message_type: item[7],
-            text: item[8],
-            text_entities: item[9] ? JSON.parse(item[9]) : null,
-            file: item[10],
-            date: item[11]
-          };
-        });
+          const transformedData = data.map(item => {
+            return {
+              user_id: item[0],
+              username: item[1],
+              first_name: item[2],
+              last_name: item[3],
+              user_photo: item[4],
+              message_id: item[5],
+              reply_to_message_id: item[6],
+              message_type: item[7],
+              text: item[8],
+              text_entities: item[9] ? JSON.parse(item[9]) : null,
+              file: item[10],
+              date: item[11]
+            };
+          });
 
-        return transformedData.reverse();
+          return transformedData.reverse();
+        } catch {
+          return [];
+        }
       }
 
       function hashCode(name) {
@@ -433,6 +437,14 @@
       async function renderRecentMessages() {
         const messageData = await getRecentMessages();
         const recentMessages = document.getElementById("recent-messages");
+
+        if (messageData.length === 0) {
+          const connectionErrEl = document.createElement("div");
+          connectionErrEl.classList.add("text-red-500", "italic", "text-center", "p-3");
+          connectionErrEl.innerText = "Cannot Connect to the API.\nAPI Connection failure.";
+          recentMessages.appendChild(connectionErrEl);
+          return;
+        }
 
         messageData.forEach(message => {
           const getColor = m => getFixedRandomColor(`${m.first_name}`);

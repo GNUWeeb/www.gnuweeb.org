@@ -93,3 +93,12 @@ export const setupUserName = (first: string, last: string | null) => {
   }
   return [ firstName, lastName ];
 }
+
+export const getRepliedMessage = (
+  current: RecentMessagesReturnType,
+  messages: RecentMessagesReturnType[]
+): RecentMessagesReturnType[] => {
+  return messages.filter(msg => {
+    return msg.message_id === current.reply_to_message_id
+  });
+}

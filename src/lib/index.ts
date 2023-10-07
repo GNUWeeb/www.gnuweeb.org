@@ -8,7 +8,8 @@ import {
   getOrgMembers,
   getFixedRandomColor,
   cleanMessageText,
-  setupUserName
+  setupUserName,
+  getRepliedMessage
 } from "./functions";
 
 export {
@@ -18,5 +19,6 @@ export {
   getOrgMembers,
   getFixedRandomColor,
   cleanMessageText,
-  setupUserName
+  setupUserName,
+  getRepliedMessage
 };

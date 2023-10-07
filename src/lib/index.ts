@@ -9,7 +9,8 @@ import {
   getFixedRandomColor,
   cleanMessageText,
   setupUserName,
-  getRepliedMessage
+  getRepliedMessage,
+  dateFormat
 } from "./functions";
 
 export {
@@ -20,5 +21,6 @@ export {
   getFixedRandomColor,
   cleanMessageText,
   setupUserName,
-  getRepliedMessage
+  getRepliedMessage,
+  dateFormat
 };

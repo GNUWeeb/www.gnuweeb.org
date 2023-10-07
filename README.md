@@ -1,30 +1,45 @@
 # GNU/Weeb's Landing Page
 
-GNU/Weeb's simple landing page.
+GNU/Weeb's landing page made with svelte/kit.
 
 ## Project Structure
 
 ```
-/ - index.html          (Main page)
-  - style.css           (Tailwind CSS)
+/ - src/                (App source)
+    - lib/              (App library)
+    - routes/           (App routes)
+      - components/     (App UI components)
+    - app.css           (App CSS styles)
+    - app.d.ts          (App types)
+    - app.html          (App root HTML)
   - package.json        (Dev dependencies)
   - *package-lock.json  (npm lockfile)
   - static/             (Static files)
     - favicon.ico       (Favicon)
   - **dist/             (Build directory)
-  - build.js            (Build script)
+  - **.svelte-kit/      (Compiled svelte/kit directory)
   - .gitignore          (Git ignore)
+  . .editorconfig       (IDE/Editor config file)
+  - .eslintignore       (ES lint ignore file)
+  - .eslintrc.cjs       (ES lint config file)
+  - .prettierignore     (Prettier ignore file)
+  - .prettierrc         (Prettier config file)
+  - postcss.config.js   (PostCSS config file)
+  - svelte.config.js    (Svelte config file)
+  - tailwind.config.js  (Tailwind config file)
+  - tsconfig.json       (TypeScript compiler config file)
+  - vite.config.ts      (Vite config file)
 
 /** Legend:
   * (*)   => Only available after npm install
-  * (**)  => Only available after npm build
+  * (**)  => Only available after npm run build
   */
 
 ```
 
 ## Development
 
-> You will need `nodejs` (minimum version: 16) and `npm` package to run the dev server locally
+> You will need `nodejs` (minimum version: 16), `TypeScript` (minimum version: 5) and `npm` package to run the dev server locally.
 
 ### Installing dependencies
 

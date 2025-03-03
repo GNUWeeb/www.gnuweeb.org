@@ -34,8 +34,9 @@
 
   onMount(() => {
     chatRootEl.lastElementChild?.scrollIntoView({
-      behavior: "smooth", block: "end", inline: "nearest"
+      behavior: "smooth", block: "nearest", inline: "end"
     });
+    window.scrollTo(0, 0);
   })
 </script>
 

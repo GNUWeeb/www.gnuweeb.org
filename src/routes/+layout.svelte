@@ -40,7 +40,7 @@
 </svelte:head>
 
 
-<div class="w-full px-20 bg-neutral-950 text-neutral-200">
+<div class="w-full md:px-20 px-5 bg-neutral-950 text-neutral-200">
 
   <!-- main/root element -->
   <main class="flex justify-center w-full min-h-screen">

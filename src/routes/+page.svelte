@@ -27,10 +27,10 @@
 {/if}
 
 <!-- CONTENT PROFILE | CENTER -->
-<section class="flex flex-col space-y-3 px-3">
+<section class="flex flex-col space-y-3 md:px-3">
 
   <!-- PROFILE SECTION -->
-  <div class="border border-neutral-800 rounded-b-xl overflow-hidden max-w-xs md:max-w-lg lg:max-w-3xl">
+  <div class="border border-neutral-800 rounded-b-xl overflow-hidden w-full md:max-w-lg lg:max-w-3xl">
     <img
       src="/img/profile-cover.jpg"
       alt=""
@@ -105,7 +105,7 @@
   {/if}
 
   <!-- MEMBER LIST SECTION - MOBILE | RIGHT -->
-  <div class="flex xl:hidden flex-col max-h-screen">
+  <div class="flex xl:hidden flex-col max-h-screen w-full md:w-auto">
     <OrganizationMembers data={data.memberListData}/>
   </div>
 

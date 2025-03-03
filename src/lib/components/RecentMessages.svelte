@@ -42,7 +42,7 @@
 
 <div
   class="border border-neutral-800 rounded-xl overflow-hidden
-        max-w-xs md:max-w-lg lg:max-w-3xl xl:w-[20rem]"
+        w-full md:max-w-lg lg:max-w-3xl xl:w-[20rem]"
 >
 
   <div class="flex px-5 py-2 border-b border-neutral-800 justify-between items-center">

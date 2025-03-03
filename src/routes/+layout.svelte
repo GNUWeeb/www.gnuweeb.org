@@ -41,10 +41,10 @@
 </svelte:head>
 
 
-<div class="w-full md:px-20 px-5 bg-neutral-950 text-neutral-200">
+<div class="w-full flex flex-col gap-5 min-h-screen bg-neutral-950 text-neutral-200">
 
   <!-- main/root element -->
-  <main class="flex justify-center w-full min-h-screen">
+  <main class="flex justify-center w-full md:px-20 px-5">
     <!-- slot will contains all contents from all the others +page.svelte inside routes/ dir -->
     <slot/>
   </main>

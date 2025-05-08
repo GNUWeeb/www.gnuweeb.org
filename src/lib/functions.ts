@@ -105,29 +105,17 @@ export const getRepliedMessage = (
 
 export const dateFormat = (date: string, amPm: boolean = false): string => {
   const ts = new Date(date);
-  const today = new Date();
+  const today = (new Date()).getTimezoneOffset();
+  const visitorDate = ts.getTimezoneOffset();
+  const calc = Math.abs(today - visitorDate) / 60;
 
-  const tsDate = ts.getDate();
-  const todayDate = today.getDate();
+  const visitorTime = new Date(ts.getTime() + (calc * 60 * 60 * 1000));
+  const localeTime = visitorTime.toLocaleString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: amPm,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+  });
 
-  const tsMonth = ts.getMonth();
-  const todayMonth = today.getMonth();
-
-  const tsYear = ts.getFullYear();
-  const todayYear = today.getFullYear();
-
-  const calc = todayDate - tsDate;
-  const localeTime = ts.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: amPm });
-
-  if (tsDate === todayDate &&tsMonth === todayMonth && tsYear === todayYear) {
-    return `Today at ${localeTime}`;
-  } else if (calc === 1 && tsMonth === todayMonth && tsYear === todayYear) {
-    return `Yesterday at ${localeTime}`;
-  } else if (calc === -1 && tsMonth === todayMonth && tsYear === todayYear) {
-    return `Tomorrow at ${localeTime}`;
-  } else if (tsYear === todayYear) {
-    return `${tsDate} ${ts.toLocaleString('en-US', { month: 'short' })} at ${localeTime}`;
-  } else {
-    return `${ts.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} at ${localeTime}`;
-  }
+  return localeTime;
 }

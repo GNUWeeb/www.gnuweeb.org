@@ -1,6 +1,7 @@
 <script lang="ts">
   import OrganizationMembers from "$components/OrganizationMembers.svelte";
   import RecentMessages from "$components/RecentMessages.svelte";
+  import Sponsor from "$components/Sponsor.svelte";
 
   export let data;
   let copyBtnEl: HTMLButtonElement;
@@ -96,6 +97,8 @@
       </div>
     </div>
   </div>
+
+  <Sponsor />
 
   <!-- RECENT MESSAGES SECTION - MOBILE | RIGHT -->
   {#if innerWidth < 1280}

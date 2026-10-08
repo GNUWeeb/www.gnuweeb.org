@@ -191,7 +191,11 @@ export const getRepliedMessage = (
   return messages.filter((msg) => msg.msg_id === current.reply?.msg_id);
 };
 
-export const dateFormat = (date: string, amPm: boolean = false): string => {
+export const dateFormat = (
+  date: string,
+  includeSeconds: boolean = true,
+  amPm: boolean = false
+): string => {
   if (!date) return "";
   // TGD API returns UTC date format e.g. "2026-10-08 12:48:57"
   const utcDateStr = date.endsWith("Z") ? date : date.replace(" ", "T") + "Z";
@@ -201,6 +205,7 @@ export const dateFormat = (date: string, amPm: boolean = false): string => {
   return ts.toLocaleTimeString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
+    second: includeSeconds ? "2-digit" : undefined,
     hour12: amPm
   });
 };

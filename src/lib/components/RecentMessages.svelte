@@ -2,6 +2,7 @@
   import {
     cleanMessageText,
     dateFormat,
+    formatDay,
     formatForwardSource,
     getFixedRandomColor,
     getMediaUrl,
@@ -37,15 +38,22 @@
   let highlightedMsgId: number | null = null;
   let highlightTimeout: ReturnType<typeof setTimeout> | null = null;
 
+  function normalizeMessages(msgs: TGDMessage[]): TGDMessage[] {
+    return msgs.map((m) => {
+      const localDay = formatDay(m.date, m.day);
+      return localDay ? { ...m, day: localDay } : m;
+    });
+  }
+
   function initFromData(input: TGDResponse | TGDMessage[] | undefined) {
     if (!input) return;
     if (Array.isArray(input)) {
-      messages = input;
+      messages = normalizeMessages(input);
       if (messages.length > 0) {
         newestMsgId = messages[messages.length - 1].msg_id;
       }
     } else if (input.messages) {
-      messages = input.messages;
+      messages = normalizeMessages(input.messages);
       olderAfter = input.older_after ?? null;
       newerAfter = input.newer_after ?? null;
       newestMsgId = input.newest_msg_id ?? messages[messages.length - 1]?.msg_id ?? null;
@@ -318,6 +326,7 @@
           loadingInitial = false;
         });
     } else {
+      messages = normalizeMessages(messages);
       requestAnimationFrame(() => {
         if (chatEl) {
           chatEl.scrollTop = chatEl.scrollHeight;

@@ -56,6 +56,12 @@ export const getRecentMessages = async (options?: {
     }
 
     const data: TGDResponse = await response.json();
+    if (data.messages && Array.isArray(data.messages)) {
+      data.messages = data.messages.map((m) => {
+        const localDay = formatDay(m.date, m.day);
+        return localDay ? { ...m, day: localDay } : m;
+      });
+    }
     return data;
   } catch (err) {
     console.error("Error fetching messages from TGD API:", err);
@@ -211,13 +217,12 @@ export const dateFormat = (
 };
 
 export const formatDay = (dateStr: string, dayStr?: string): string => {
-  if (dayStr) return dayStr;
-  if (!dateStr) return "";
+  if (!dateStr) return dayStr ?? "";
   const utcDateStr = dateStr.endsWith("Z") ? dateStr : dateStr.replace(" ", "T") + "Z";
   const d = new Date(utcDateStr);
-  if (isNaN(d.getTime())) return "";
+  if (isNaN(d.getTime())) return dayStr ?? "";
 
-  return d.toLocaleDateString(undefined, {
+  return d.toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric"

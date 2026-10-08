@@ -1,15 +1,16 @@
-import type { GitHubOrgsAPIResponseType, RecentMessagesReturnType } from "$types";
-import { API_URL } from "./constants";
-
+import type {
+  GitHubOrgsAPIResponseType,
+  RecentMessagesReturnType,
+  TGDMessageForward,
+  TGDResponse
+} from "$types";
+import { TGD_API_URL, TGD_BASE_URL } from "./constants";
 
 export const getOrgMembers = async (): Promise<GitHubOrgsAPIResponseType[]> => {
   const response = await fetch("https://api.github.com/orgs/gnuweeb/members");
   const data: GitHubOrgsAPIResponseType[] = await response.json();
 
-  data.sort((
-    left: GitHubOrgsAPIResponseType,
-    right: GitHubOrgsAPIResponseType
-  ) => {
+  data.sort((left: GitHubOrgsAPIResponseType, right: GitHubOrgsAPIResponseType) => {
     const usernameA = left.login.toLowerCase();
     const usernameB = right.login.toLowerCase();
     if (usernameA < usernameB) return -1;
@@ -18,44 +19,64 @@ export const getOrgMembers = async (): Promise<GitHubOrgsAPIResponseType[]> => {
   });
 
   return data;
-}
+};
 
-export const getRecentMessages = async (): Promise<RecentMessagesReturnType[] | []> => {
+export const getMediaUrl = (url: string | null | undefined): string => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith("/")) return `${TGD_BASE_URL}${url}`;
+  return `${TGD_BASE_URL}/${url}`;
+};
+
+export const getRecentMessages = async (options?: {
+  limit?: number;
+  after?: number | string | null;
+}): Promise<TGDResponse> => {
+  const limit = options?.limit ?? 30;
+  const afterParam = options?.after != null ? `&after=${options.after}` : "";
+  const targetUrl = `${TGD_API_URL}?limit=${limit}${afterParam}`;
+
   try {
-    const response = await fetch(API_URL + "/zxc.php?action=get_messages&chat_id=-1001483770714&limit=50");
-    const { data } = (await response.json()).result;
+    let response: Response;
+    try {
+      response = await fetch(targetUrl);
+    } catch (fetchErr) {
+      // In Vite development mode, fall back to dev proxy if CORS blocked localhost
+      if (typeof window !== "undefined" && import.meta.env?.DEV) {
+        const proxyUrl = targetUrl.replace(TGD_BASE_URL, "/tgd-proxy");
+        response = await fetch(proxyUrl);
+      } else {
+        throw fetchErr;
+      }
+    }
 
-    const transformedData = data.map((item: any) => {
-      return {
-        user_id: item[0],
-        username: item[1],
-        first_name: item[2],
-        last_name: item[3],
-        user_photo: item[4],
-        message_id: item[5],
-        reply_to_message_id: item[6],
-        message_type: item[7],
-        text: item[8],
-        text_entities: item[9] ? JSON.parse(item[9]) : null,
-        file: item[10],
-        date: item[11]
-      };
-    });
+    if (!response.ok) {
+      throw new Error(`API returned HTTP ${response.status}`);
+    }
 
-    return transformedData.reverse();
-  } catch {
-    return [];
+    const data: TGDResponse = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching messages from TGD API:", err);
+    return {
+      limit,
+      messages: [],
+      oldest_msg_id: undefined,
+      newest_msg_id: undefined,
+      older_after: null,
+      newer_after: null
+    };
   }
-}
+};
 
 const hashCode = (name: string) => {
-  var hash = 0;
-  for (var i = 0; i < name.length; i++) {
-      var character = name.charCodeAt(i);
-      hash = ((hash << 5) - hash) + character;
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    const character = name.charCodeAt(i);
+    hash = (hash << 5) - hash + character;
   }
   return Math.abs(hash);
-}
+};
 
 export const getFixedRandomColor = (name: string) => {
   const colorData: Record<string, string> = {
@@ -75,47 +96,99 @@ export const getFixedRandomColor = (name: string) => {
     violet: "text-violet-400 border-violet-400",
     fuchsia: "text-fuchsia-400 border-fuchsia-400",
     pink: "text-pink-400 border-pink-400",
-    rose: "text-rose-400 border-rose-400",
+    rose: "text-rose-400 border-rose-400"
   };
   const colorNames = Object.keys(colorData);
   return colorData[colorNames[hashCode(name) % colorNames.length]].split(" ");
-}
+};
+
+export const unescapeHtml = (str: string | null | undefined): string => {
+  if (!str) return "";
+  return str
+    .replace(/&#(\d+);/g, (_, dec) => {
+      const code = parseInt(dec, 10);
+      try {
+        return String.fromCodePoint(code);
+      } catch {
+        return _;
+      }
+    })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      const code = parseInt(hex, 16);
+      try {
+        return String.fromCodePoint(code);
+      } catch {
+        return _;
+      }
+    })
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&");
+};
 
 export const cleanMessageText = (text: string) => {
-  return text.replaceAll(/\n/g, " ");
-}
+  return unescapeHtml(text).replaceAll(/\n/g, " ");
+};
+
+export const formatForwardSource = (f: TGDMessageForward | null | undefined): string => {
+  if (!f) return "";
+  const name = unescapeHtml(f.sender_name).trim();
+  if (name) return name;
+  if (f.type) {
+    if (f.type === "channel") return "a channel";
+    return f.type;
+  }
+  if (f.user_id != null) return `user #${f.user_id}`;
+  if (f.chat_id != null) return `chat #${f.chat_id}`;
+  return "hidden sender";
+};
 
 export const setupUserName = (first: string, last: string | null) => {
   const firstName = first.trimEnd();
   let lastName = "";
-  if(last !== null) {
+  if (last !== null) {
     lastName = " " + last.trimEnd();
   }
-  return [ firstName, lastName ];
-}
+  return [firstName, lastName];
+};
 
 export const getRepliedMessage = (
   current: RecentMessagesReturnType,
   messages: RecentMessagesReturnType[]
 ): RecentMessagesReturnType[] => {
-  return messages.filter(msg => {
-    return msg.message_id === current.reply_to_message_id
-  });
-}
+  if (!current.reply) return [];
+  return messages.filter((msg) => msg.msg_id === current.reply?.msg_id);
+};
 
 export const dateFormat = (date: string, amPm: boolean = false): string => {
-  const ts = new Date(date);
-  const today = (new Date()).getTimezoneOffset();
-  const visitorDate = ts.getTimezoneOffset();
-  const calc = Math.abs(today - visitorDate) / 60;
+  if (!date) return "";
+  // TGD API returns UTC date format e.g. "2026-10-08 12:48:57"
+  const utcDateStr = date.endsWith("Z") ? date : date.replace(" ", "T") + "Z";
+  const ts = new Date(utcDateStr);
+  if (isNaN(ts.getTime())) return date;
 
-  const visitorTime = new Date(ts.getTime() + (calc * 60 * 60 * 1000));
-  const localeTime = visitorTime.toLocaleString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: amPm,
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+  return ts.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: amPm
   });
+};
 
-  return localeTime;
-}
+export const formatDay = (dateStr: string, dayStr?: string): string => {
+  if (dayStr) return dayStr;
+  if (!dateStr) return "";
+  const utcDateStr = dateStr.endsWith("Z") ? dateStr : dateStr.replace(" ", "T") + "Z";
+  const d = new Date(utcDateStr);
+  if (isNaN(d.getTime())) return "";
+
+  return d.toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+};

@@ -689,7 +689,7 @@
                   href={msg.link_preview.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="block my-1.5 p-2 rounded-lg bg-neutral-800/40 border-l-2 border-sky-400 hover:bg-neutral-800/70 transition text-left"
+                  class="block my-1.5 p-2 rounded-r-sm bg-neutral-800/40 border-l-2 border-sky-400 hover:bg-neutral-800/70 transition text-left"
                 >
                   {#if msg.link_preview.site_name}
                     <div class="text-[10px] font-bold uppercase tracking-wider text-sky-400">

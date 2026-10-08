@@ -509,6 +509,7 @@
             <div
               id={`msg-${msg.msg_id}-bubble`}
               class="chat-bubble transition-all duration-300 ease-in-out
+                     {msg.is_deleted ? 'opacity-80' : ''}
                      {highlightedMsgId === msg.msg_id
                 ? '!bg-neutral-800 !ring-2 !ring-sky-500 scale-[1.02]'
                 : ''}"
@@ -669,10 +670,16 @@
               <!-- MESSAGE TEXT -->
               {#if msg.text}
                 <div
-                  class="msg-text text-neutral-200 text-xs sm:text-sm leading-relaxed break-words"
+                  class="msg-text text-neutral-200 text-xs sm:text-sm leading-relaxed break-words {msg.is_deleted
+                    ? 'line-through opacity-75'
+                    : ''}"
                 >
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                   {@html msg.text}
+                </div>
+              {:else if msg.is_deleted && !msg.media && (!msg.items || msg.items.length === 0)}
+                <div class="italic text-neutral-400 text-xs py-0.5 select-none">
+                  (deleted message)
                 </div>
               {/if}
 
@@ -733,6 +740,9 @@
                 </a>
 
                 <div class="flex items-center space-x-1.5 opacity-70">
+                  {#if msg.is_deleted}
+                    <span class="text-red-400/90 italic font-medium">deleted</span>
+                  {/if}
                   {#if msg.is_edited}
                     <span class="text-neutral-500 italic">edited</span>
                   {/if}

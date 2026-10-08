@@ -2,6 +2,7 @@ import type {
   GitHubOrgsAPIResponseType,
   RecentMessagesReturnType,
   TGDMessageForward,
+  TGDMessageSender,
   TGDResponse
 } from "$types";
 import { TGD_API_URL, TGD_BASE_URL } from "./constants";
@@ -135,16 +136,41 @@ export const cleanMessageText = (text: string) => {
   return unescapeHtml(text).replaceAll(/\n/g, " ");
 };
 
-export const formatForwardSource = (f: TGDMessageForward | null | undefined): string => {
+export const formatForwardSource = (
+  f: TGDMessageForward | null | undefined,
+  currentSender?: TGDMessageSender | null,
+  lookupUser?: ((userId: number) => string | undefined) | Map<number, string>
+): string => {
   if (!f) return "";
+
+  // 1. Explicit sender_name returned by TGD API
   const name = unescapeHtml(f.sender_name).trim();
   if (name) return name;
-  if (f.type) {
-    if (f.type === "channel") return "a channel";
-    return f.type;
+
+  // 2. If the user_id matches the message sender, use the sender name
+  if (f.user_id != null && currentSender?.id === f.user_id && currentSender.name) {
+    const senderName = unescapeHtml(currentSender.name).trim();
+    if (senderName) return senderName;
   }
+
+  // 3. If a lookup function or map can resolve the user_id from chat history
+  if (f.user_id != null && lookupUser) {
+    const resolved =
+      typeof lookupUser === "function" ? lookupUser(f.user_id) : lookupUser.get(f.user_id);
+    if (resolved) {
+      const resolvedName = unescapeHtml(resolved).trim();
+      if (resolvedName) return resolvedName;
+    }
+  }
+
+  // 4. Fallbacks by origin type
+  if (f.type === "channel") return "a channel";
+  if (f.type === "user") return "a user";
+
+  // 5. Fallbacks by ID
   if (f.user_id != null) return `user #${f.user_id}`;
   if (f.chat_id != null) return `chat #${f.chat_id}`;
+
   return "hidden sender";
 };
 

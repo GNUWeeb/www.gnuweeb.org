@@ -265,6 +265,11 @@
     unreadCount = 0;
   };
 
+  const lookupUserName = (userId: number): string | undefined => {
+    const match = messages.find((m) => m.sender?.id === userId);
+    return match?.sender?.name;
+  };
+
   const checkLiveMessages = async () => {
     if (typeof document !== "undefined" && document.hidden) return;
     if (newerAfter !== null || newestMsgId === null || loadingOlder || loadingNewer) return;
@@ -523,7 +528,7 @@
               <!-- FORWARD HEADER -->
               {#if msg.forward}
                 <div class="text-[11px] text-sky-400/90 font-medium mb-1">
-                  Forwarded from {formatForwardSource(msg.forward)}
+                  Forwarded from {formatForwardSource(msg.forward, msg.sender, lookupUserName)}
                 </div>
               {/if}
 
